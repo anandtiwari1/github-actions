@@ -20,7 +20,7 @@ jobs:
       uses: act10ns/slack@v2.0.0
       with:
         status: ${{ job.status }}
-        text: |
+        message: |
           Data in line item text:
           ${{ env.DATA_LIST }}
         channel: ${{ env.SLACK_EVENTS_CHANNEL }}
