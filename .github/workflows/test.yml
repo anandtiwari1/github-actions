@@ -1,0 +1,26 @@
+name: Slack Notification
+
+on:
+  workflow_dispatch:
+
+jobs:
+  notify-on-push:
+    runs-on: ubuntu-latest
+
+    env:
+      DATA_LIST: "test1\ntest2\ntest3"
+      SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+      SLACK_EVENTS_CHANNEL: retail360-systems-e2e-alerts
+
+    steps:
+    - name: Set up Git repository
+      uses: actions/checkout@v2
+
+    - name: Notify on Slack
+      uses: act10ns/slack@v2.0.0
+      with:
+        status: ${{ job.status }}
+        text: |
+          Data in line item text:
+          ${{ env.DATA_LIST }}
+        channel: ${{ env.SLACK_EVENTS_CHANNEL }}
